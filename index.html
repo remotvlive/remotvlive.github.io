@@ -4,7 +4,60 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To-Do List App</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        #todo-form {
+            width: 50%;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #todo-input {
+            width: 80%;
+            height: 30px;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+        }
+
+        #add-btn {
+            width: 15%;
+            height: 30px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #todo-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .todo-item {
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .todo-item:last-child {
+            border-bottom: none;
+        }
+
+        .completed {
+            text-decoration: line-through;
+            color: #666;
+        }
+    </style>
 </head>
 <body>
     <h1>To-Do List App</h1>
@@ -13,6 +66,56 @@
         <button id="add-btn">Add</button>
     </form>
     <ul id="todo-list"></ul>
-    <script src="script.js"></script>
+
+    <script>
+        const todoForm = document.getElementById('todo-form');
+        const todoInput = document.getElementById('todo-input');
+        const todoList = document.getElementById('todo-list');
+
+        let todos = [];
+
+        todoForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const todoText = todoInput.value.trim();
+            if (todoText) {
+                const newTodo = {
+                    text: todoText,
+                    completed: false
+                };
+                todos.push(newTodo);
+                todoInput.value = '';
+                renderTodos();
+            }
+        });
+
+        function renderTodos() {
+            todoList.innerHTML = '';
+            todos.forEach((todo, index) => {
+                const todoItem = document.createElement('li');
+                todoItem.classList.add('todo-item');
+                if (todo.completed) {
+                    todoItem.classList.add('completed');
+                }
+                todoItem.innerHTML = `
+                    <span>${todo.text}</span>
+                    <button class="complete-btn">Complete</button>
+                    <button class="delete-btn">Delete</button>
+                `;
+                todoList.appendChild(todoItem);
+
+                const completeBtn = todoItem.querySelector('.complete-btn');
+                completeBtn.addEventListener('click', () => {
+                    todo.completed = !todo.completed;
+                    renderTodos();
+                });
+
+                const deleteBtn = todoItem.querySelector('.delete-btn');
+                deleteBtn.addEventListener('click', () => {
+                    todos.splice(index, 1);
+                    renderTodos();
+                });
+            });
+        }
+    </script>
 </body>
 </html>
