@@ -1,120 +1,382 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To-Do List App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>remo TV - الصفحة الرئيسية</title>
+    <link rel="icon" type="image/png" href="https://up6.cc/2025/07/175240890301591.png">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap');
+        
+        :root {
+            --primary-color: #4CAF50;
+            --secondary-color: #FFC107;
+            --dark-color: #2E7D32;
+            --light-color: #F1F8E9;
+            --text-color: #333;
+            --telegram-color: #0088cc;
+            --watch-now-color: #E91E63;
         }
-
-        #todo-form {
-            width: 50%;
-            margin: 40px auto;
-            padding: 20px;
-            background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        #todo-input {
-            width: 80%;
-            height: 30px;
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #ccc;
-        }
-
-        #add-btn {
-            width: 15%;
-            height: 30px;
-            background-color: #4CAF50;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        #todo-list {
-            list-style: none;
-            padding: 0;
+        
+        * {
             margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
         }
-
-        .todo-item {
-            padding: 10px;
-            border-bottom: 1px solid #ccc;
+        
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: #f9f9f9;
+            color: var(--text-color);
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--light-color) 0%, #ffffff 100%);
         }
-
-        .todo-item:last-child {
-            border-bottom: none;
+        
+        .container {
+            width: 100%;
+            max-width: 800px;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
         }
-
-        .completed {
-            text-decoration: line-through;
-            color: #666;
+        
+        .logo {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 40px;
+            border-radius: 50%;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 0px solid var(--secondary-color);
+            overflow: hidden;
+            animation: float 3s ease-in-out infinite;
+            transition: all 0.3s ease;
+        }
+        
+        .logo:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .logo img {
+            width: 80%;
+            height: auto;
+            object-fit: contain;
+        }
+        
+        h1 {
+            color: var(--dark-color);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 900;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        p {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            color: #555;
+            line-height: 1.6;
+        }
+        
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+            max-width: 400px;
+            margin: 30px auto;
+        }
+        
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px 25px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-decoration: none;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            border: none;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn:active {
+            transform: translateY(1px);
+        }
+        
+        .btn-download {
+            background: linear-gradient(45deg, var(--primary-color), var(--dark-color));
+        }
+        
+        .btn-watch {
+            background: linear-gradient(45deg, var(--watch-now-color), #C2185B);
+        }
+        
+        .btn-telegram {
+            background: linear-gradient(45deg, var(--telegram-color), #005f8c);
+        }
+        
+        .btn i {
+            margin-left: 10px;
+            font-size: 1.4rem;
+        }
+        
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+        }
+        
+        .feature {
+            background-color: white;
+            padding: 15px;
+            border-radius: 10px;
+            width: 150px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            cursor: default;
+            opacity: 0.9;
+        }
+        
+        .feature i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        
+        .feature p {
+            font-size: 0.9rem;
+            margin: 0;
+            font-weight: 700;
+            color: var(--dark-color);
+        }
+        
+        .ripple {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            transform: scale(0);
+            animation: ripple 0.6s linear;
+            pointer-events: none;
+        }
+        
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        @keyframes ripple {
+            to {
+                transform: scale(2.5);
+                opacity: 0;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .logo {
+                width: 150px;
+                height: 150px;
+                margin-bottom: 25px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            p {
+                font-size: 1rem;
+                margin-bottom: 15px;
+            }
+            
+            .btn {
+                padding: 12px 20px;
+                font-size: 1.1rem;
+            }
+            
+            .features {
+                gap: 10px;
+            }
+            
+            .feature {
+                width: 120px;
+                padding: 10px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .logo {
+                width: 120px;
+                height: 120px;
+                margin-bottom: 20px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .buttons {
+                gap: 12px;
+            }
+            
+            .features {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .feature {
+                width: 100%;
+                max-width: 200px;
+            }
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <h1>To-Do List App</h1>
-    <form id="todo-form">
-        <input type="text" id="todo-input" placeholder="Add new task">
-        <button id="add-btn">Add</button>
-    </form>
-    <ul id="todo-list"></ul>
+    <div class="particles" id="particles"></div>
+    
+    <div class="container">
+        <div class="logo">
+            <img src="https://up6.cc/2025/07/175240890301591.png" alt="remo TV Logo">
+        </div>
+        
+        <h1>remo TV</h1>
+        <p>استمتع بأفضل تجربة بث تلفزيوني على جميع أجهزتك</p>
+        
+        <div class="features">
+            <div class="feature">
+                <i class="fas fa-tv"></i>
+                <p>قنوات عربية وعالمية</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-futbol"></i>
+                <p>أحداث رياضية حصرية</p>
+            </div>
+        </div>
+        
+        <div class="buttons">
+            <a href="https://remodownload.github.io" class="btn btn-download" id="downloadBtn">
+                حمل التطبيق الآن
+                <i class="fas fa-download"></i>
+            </a>
+            
+            <a href="https://remotv-live.github.io/" class="btn btn-watch" id="watchBtn">
+                شاهد الآن
+                <i class="fas fa-play"></i>
+            </a>
+            
+            <a href="https://t.me/remotvv" class="btn btn-telegram" id="telegramBtn">
+                انضم لقناتنا على التليجرام
+                <i class="fab fa-telegram"></i>
+            </a>
+        </div>
+    </div>
 
     <script>
-        const todoForm = document.getElementById('todo-form');
-        const todoInput = document.getElementById('todo-input');
-        const todoList = document.getElementById('todo-list');
-
-        let todos = [];
-
-        todoForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const todoText = todoInput.value.trim();
-            if (todoText) {
-                const newTodo = {
-                    text: todoText,
-                    completed: false
-                };
-                todos.push(newTodo);
-                todoInput.value = '';
-                renderTodos();
-            }
-        });
-
-        function renderTodos() {
-            todoList.innerHTML = '';
-            todos.forEach((todo, index) => {
-                const todoItem = document.createElement('li');
-                todoItem.classList.add('todo-item');
-                if (todo.completed) {
-                    todoItem.classList.add('completed');
-                }
-                todoItem.innerHTML = `
-                    <span>${todo.text}</span>
-                    <button class="complete-btn">Complete</button>
-                    <button class="delete-btn">Delete</button>
-                `;
-                todoList.appendChild(todoItem);
-
-                const completeBtn = todoItem.querySelector('.complete-btn');
-                completeBtn.addEventListener('click', () => {
-                    todo.completed = !todo.completed;
-                    renderTodos();
-                });
-
-                const deleteBtn = todoItem.querySelector('.delete-btn');
-                deleteBtn.addEventListener('click', () => {
-                    todos.splice(index, 1);
-                    renderTodos();
-                });
+        // إنشاء تأثير الريبل عند النقر على الأزرار
+        const buttons = document.querySelectorAll('.btn');
+        buttons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                const x = e.clientX - e.target.getBoundingClientRect().left;
+                const y = e.clientY - e.target.getBoundingClientRect().top;
+                
+                const ripple = document.createElement('span');
+                ripple.classList.add('ripple');
+                ripple.style.left = `${x}px`;
+                ripple.style.top = `${y}px`;
+                
+                this.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
             });
+        });
+        
+        // إنشاء تأثير الجسيمات الخلفية
+        const particles = document.getElementById('particles');
+        const colors = ['#4CAF50', '#8BC34A', '#CDDC39', '#FFC107'];
+        
+        function createParticle() {
+            const particle = document.createElement('div');
+            const size = Math.random() * 10 + 5;
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.backgroundColor = color;
+            particle.style.position = 'absolute';
+            particle.style.borderRadius = '50%';
+            particle.style.opacity = Math.random() * 0.6 + 0.2;
+            particle.style.left = `${Math.random() * 100}vw`;
+            particle.style.top = `${Math.random() * 100}vh`;
+            
+            particles.appendChild(particle);
+            
+            const animationDuration = Math.random() * 20 + 10;
+            
+            particle.animate([
+                { transform: 'translateY(0)' },
+                { transform: `translateY(${Math.random() > 0.5 ? '-' : ''}${Math.random() * 100 + 50}px)` }
+            ], {
+                duration: animationDuration * 1000,
+                iterations: Infinity,
+                direction: 'alternate',
+                easing: 'ease-in-out'
+            });
+            
+            setTimeout(() => {
+                particle.remove();
+                createParticle();
+            }, animationDuration * 1000);
+        }
+        
+        // إنشاء 20 جسيماً
+        for(let i = 0; i < 20; i++) {
+            createParticle();
         }
     </script>
 </body>
